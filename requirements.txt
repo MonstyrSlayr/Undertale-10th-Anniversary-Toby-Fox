@@ -1,4 +1,4 @@
 pygame
-speech_recognition
+SpeechRecognition
 pyttsx3
 pydub

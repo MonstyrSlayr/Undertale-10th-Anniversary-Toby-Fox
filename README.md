@@ -5,7 +5,7 @@ a little program to mimic the communication method Toby Fox had going on during 
 feel free to contribute, if you're comfortable with python
 
 # Download
-download the program from the Releases tab
+download the program for your OS from the Releases tab
 - **full_radiation**: the whole package, with speech to text, pressing Z to flip, and pressing X to poison yourself
 - **just_speech**: just the speech to text
 

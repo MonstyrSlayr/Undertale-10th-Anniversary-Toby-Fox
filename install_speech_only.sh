@@ -1,0 +1,1 @@
+pyinstaller --onefile --noconsole --icon "dog_open.ico" --distpath dist/ --add-data "img:img" --add-data "fonts:fonts" --add-data "sfx:sfx" just_speech.py

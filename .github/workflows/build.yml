@@ -1,0 +1,44 @@
+name: Build Executables
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        pip install -r requirements.txt
+        pip install Pillow
+
+    - name: Build executables
+      run: |
+        pyinstaller --onefile --noconsole --icon "dog_open.ico" --distpath dist/ --add-data "img:img" --add-data "fonts:fonts" --add-data "sfx:sfx" full_radiation.py
+        pyinstaller --onefile --noconsole --icon "dog_open.ico" --distpath dist/ --add-data "img:img" --add-data "fonts:fonts" --add-data "sfx:sfx" just_speech.py
+
+    - name: Upload executables
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ runner.os }}-build
+        path: dist/

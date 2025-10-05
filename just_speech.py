@@ -6,9 +6,19 @@ import time
 import queue
 from pydub import AudioSegment
 import re
+import sys
+import os
+
+def get_resource_path(relative_path):
+    """
+    get the absolute path to a resource file
+    """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 # === CONFIG ===
-FONT_PATH = "DTM-Sans.otf"
+FONT_PATH = get_resource_path("fonts/DTM-Sans.otf")
 FONT_SIZE = 32
 AUDIO_DEVICE_NAME = "Toby Fox"
 TEXTBOX_WIDTH = 600
@@ -18,7 +28,7 @@ custom_words = {"tricky Tony": "Tricky Tony",
                 "Toby radiation Fox": "Toby \"Radiation\" Fox",
                 "Chris": "Kris",
                 "undertale": "Undertale",
-                "Delta Rune": "Deltarune", "Delta room": "Deltarune",
+                "Delta Rune": "Deltarune", "Delta room": "Deltarune", "Delta Road": "Deltarune", "deltarune": "Deltarune",
                 "Rossi": "Ralsei", "Rosie": "Ralsei",
                 "Noel": "Noelle",
                 "Burley": "Berdley", "Berkley": "Berdley",
@@ -47,14 +57,20 @@ pygame.display.set_caption("Toby Fox Simulator")
 font = pygame.font.Font(FONT_PATH, FONT_SIZE)
 
 # load dog images
-dog_closed = pygame.image.load("dog_closed.png").convert_alpha()
-dog_open = pygame.image.load("dog_open.png").convert_alpha()
+dog_scale = 5
+
+dog_closed = pygame.image.load(get_resource_path("img/dog_closed.png")).convert_alpha()
 dog_closed = pygame.transform.scale(
-    dog_closed, (dog_closed.get_width() * 5, dog_closed.get_height() * 5)
+    dog_closed, (dog_closed.get_width() * dog_scale, dog_closed.get_height() * dog_scale)
 )
+dog_closed = pygame.transform.flip(dog_closed, True, False)
+
+dog_open = pygame.image.load(get_resource_path("img/dog_open.png")).convert_alpha()
 dog_open = pygame.transform.scale(
-    dog_open, (dog_open.get_width() * 5, dog_open.get_height() * 5)
+    dog_open, (dog_open.get_width() * dog_scale, dog_open.get_height() * dog_scale)
 )
+dog_open = pygame.transform.flip(dog_open, True, False)
+
 dog_state = dog_closed
 dog_rect = dog_closed.get_rect()
 dog_rect.midbottom = (400, 580)

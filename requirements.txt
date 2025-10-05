@@ -1,0 +1,4 @@
+pygame
+speech_recognition
+pyttsx3
+pydub

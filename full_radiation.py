@@ -6,9 +6,19 @@ import time
 import queue
 from pydub import AudioSegment
 import re
+import sys
+import os
+
+def get_resource_path(relative_path):
+    """
+    get the absolute path to a resource file
+    """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)
 
 # === CONFIG ===
-FONT_PATH = "DTM-Sans.otf"
+FONT_PATH = get_resource_path("fonts/DTM-Sans.otf")
 FONT_SIZE = 32
 AUDIO_DEVICE_NAME = "Toby Fox"
 TEXTBOX_WIDTH = 600
@@ -46,32 +56,32 @@ screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Toby Fox Simulator")
 font = pygame.font.Font(FONT_PATH, FONT_SIZE)
 pygame.mixer.init() # for sounds
-flip_sound = pygame.mixer.Sound("sfx/flip.mp3")
-hurt_sound = pygame.mixer.Sound("sfx/hurt.mp3")
-heal_sound = pygame.mixer.Sound("sfx/heal.mp3")
+flip_sound = pygame.mixer.Sound(get_resource_path("sfx/flip.mp3"))
+hurt_sound = pygame.mixer.Sound(get_resource_path("sfx/hurt.mp3"))
+heal_sound = pygame.mixer.Sound(get_resource_path("sfx/heal.mp3"))
 
 # load dog images
 dog_scale = 5
 
-dog_closed = pygame.image.load("img/dog_closed.png").convert_alpha()
+dog_closed = pygame.image.load(get_resource_path("img/dog_closed.png")).convert_alpha()
 dog_closed = pygame.transform.scale(
     dog_closed, (dog_closed.get_width() * dog_scale, dog_closed.get_height() * dog_scale)
 )
 dog_closed = pygame.transform.flip(dog_closed, True, False)
 
-dog_open = pygame.image.load("img/dog_open.png").convert_alpha()
+dog_open = pygame.image.load(get_resource_path("img/dog_open.png")).convert_alpha()
 dog_open = pygame.transform.scale(
     dog_open, (dog_open.get_width() * dog_scale, dog_open.get_height() * dog_scale)
 )
 dog_open = pygame.transform.flip(dog_open, True, False)
 
-dog_walk_1 = pygame.image.load("img/dog_walk_1.png").convert_alpha()
+dog_walk_1 = pygame.image.load(get_resource_path("img/dog_walk_1.png")).convert_alpha()
 dog_walk_1 = pygame.transform.scale(
     dog_walk_1, (dog_walk_1.get_width() * dog_scale, dog_walk_1.get_height() * dog_scale)
 )
 dog_walk_1 = pygame.transform.flip(dog_walk_1, True, False)
 
-dog_walk_2 = pygame.image.load("img/dog_walk_2.png").convert_alpha()
+dog_walk_2 = pygame.image.load(get_resource_path("img/dog_walk_2.png")).convert_alpha()
 dog_walk_2 = pygame.transform.scale(
     dog_walk_2, (dog_walk_2.get_width() * dog_scale, dog_walk_2.get_height() * dog_scale)
 )
@@ -82,7 +92,7 @@ dog_rect = dog_closed.get_rect()
 dog_rect.midbottom = (400, 580)
 
 # and poisoned image
-poisoned_point = pygame.image.load("img/poison_point.png").convert_alpha()
+poisoned_point = pygame.image.load(get_resource_path("img/poison_point.png")).convert_alpha()
 poisoned_point = pygame.transform.scale(
     poisoned_point, (poisoned_point.get_width() * 2, poisoned_point.get_height() * 2)
 )

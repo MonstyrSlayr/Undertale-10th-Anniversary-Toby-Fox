@@ -9,6 +9,8 @@ download the program from the Releases tab
 
 # Run it from Source
 when ran from source, you have access to the console, which means you can type things in to make Toby say sommething more precise
+- install python 3.11+
+- install pip
 - pip install everything in requirements.txt
 - run either full_radiation.py or just_speech.py
 

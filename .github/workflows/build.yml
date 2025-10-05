@@ -38,7 +38,7 @@ jobs:
         pyinstaller --onefile --noconsole --icon "dog_open.ico" --distpath dist/ --add-data "img:img" --add-data "fonts:fonts" --add-data "sfx:sfx" just_speech.py
 
     - name: Upload executables
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ runner.os }}-build
         path: dist/
